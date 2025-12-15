@@ -1,0 +1,53 @@
+{
+  "name": "chartmetric-preview",
+  "description": "Chartmetric Full-Stack Application - Preview Environment",
+  "type": "docker-compose",
+  "docker_compose_file": "docker-compose.yml",
+  "build_pack": "dockercompose",
+  "environment_variables": [
+    {
+      "key": "NEXT_PUBLIC_API_URL",
+      "value": "http://localhost:5001",
+      "is_build_time": true
+    },
+    {
+      "key": "DB_HOST",
+      "value": "db",
+      "is_build_time": false
+    },
+    {
+      "key": "DB_PORT",
+      "value": "5432",
+      "is_build_time": false
+    },
+    {
+      "key": "DB_USER",
+      "value": "postgres",
+      "is_build_time": false
+    },
+    {
+      "key": "DB_PASSWORD",
+      "value": "postgres",
+      "is_build_time": false,
+      "is_secret": true
+    },
+    {
+      "key": "DB_NAME",
+      "value": "chartmetric",
+      "is_build_time": false
+    }
+  ],
+  "health_check": {
+    "enabled": true,
+    "test": "curl -f http://localhost:3000 || exit 1",
+    "interval": "30s",
+    "timeout": "10s",
+    "retries": 3,
+    "start_period": "30s"
+  },
+  "webhooks": {
+    "enabled": true,
+    "on_deployment_success": true,
+    "on_deployment_failure": true
+  }
+}
