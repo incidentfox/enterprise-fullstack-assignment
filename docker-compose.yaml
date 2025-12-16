@@ -3,8 +3,6 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-      platforms:
-        - linux/amd64
     platform: linux/amd64
     ports:
       - '3000:3000'
@@ -18,8 +16,6 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-      platforms:
-        - linux/amd64
     platform: linux/amd64
     ports:
       - '5001:5000'
