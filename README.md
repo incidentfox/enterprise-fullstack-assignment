@@ -1,4 +1,4 @@
-# Full-Stack Engineer Take-Home Assignment
+# DEMO: Full-Stack Engineer Take-Home Assignment
 
 Welcome to the Chartmetric Full-Stack Engineer take-home assignment! This repository contains a complete development environment for you to demonstrate your full-stack engineering skills.
 
