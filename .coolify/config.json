@@ -2,7 +2,7 @@
   "name": "chartmetric-preview",
   "description": "Chartmetric Full-Stack Application - Preview Environment",
   "type": "docker-compose",
-  "docker_compose_file": "docker-compose.yml",
+  "docker_compose_file": "docker-compose.yaml",
   "build_pack": "dockercompose",
   "environment_variables": [
     {

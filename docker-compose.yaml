@@ -1,36 +1,45 @@
 services:
   frontend:
-    image: jiwonjoung/chartmetric-assignment:frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    platform: linux/amd64
     ports:
       - '3000:3000'
     depends_on:
       - backend
     environment:
-      - NEXT_PUBLIC_API_URL=http://localhost:5001
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
+      - NEXT_PUBLIC_API_URL=http://backend:5000
+    restart: unless-stopped
 
   backend:
-    image: jiwonjoung/chartmetric-assignment:backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    platform: linux/amd64
     ports:
       - '5001:5000'
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     environment:
       - DB_HOST=db
       - DB_PORT=5432
       - DB_USER=postgres
       - DB_PASSWORD=postgres
       - DB_NAME=chartmetric
-    volumes:
-      - ./backend:/app
-      - /app/node_modules
+      - PORT=5000
+    restart: unless-stopped
 
   db:
-    image: jiwonjoung/chartmetric-assignment:database
+    image: postgres:15-alpine
+    platform: linux/amd64
     ports:
       - '5432:5432'
+    environment:
+      - POSTGRES_DB=chartmetric
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
@@ -38,6 +47,7 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+    restart: unless-stopped
 
 volumes:
   postgres_data:
