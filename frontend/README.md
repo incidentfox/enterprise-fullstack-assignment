@@ -1,6 +1,6 @@
 # Frontend Service
 
-This is the frontend service for the Chartmetric assignment, built with Next.js and TypeScript. It provides a modern, responsive interface for visualizing music streaming analytics data.
+This is the web UI for the starter repo, built with Next.js and TypeScript.
 
 ## Tech Stack
 
@@ -49,7 +49,7 @@ frontend/
 Create a `.env.local` file in the root directory with these variables:
 
 ```env
-NEXT_PUBLIC_API_URL=http://localhost:5001  # Backend API URL
+NEXT_PUBLIC_API_URL=http://localhost:5001  # API URL
 ```
 
 ## Development Guidelines
@@ -79,8 +79,8 @@ The application includes a Dockerfile for containerized deployment. Build and ru
 
 ```bash
 # Build the image
-docker build -t chartmetric-frontend .
+docker build -t starter-web .
 
 # Run the container
-docker run -p 3000:3000 chartmetric-frontend
+docker run -p 3000:3000 starter-web
 ```

@@ -1,0 +1,107 @@
+{
+  "name": "incidentfox-bot",
+  "description": "IncidentFox GitHub App - AI SRE for Pull Request Deployments",
+  "type": "dockerfile",
+  "dockerfile": "Dockerfile",
+  "build_pack": "dockerfile",
+  "ports": [
+    {
+      "published": "8000",
+      "target": "8000",
+      "protocol": "tcp"
+    }
+  ],
+  "environment_variables": [
+    {
+      "key": "ENVIRONMENT",
+      "value": "production",
+      "is_build_time": false
+    },
+    {
+      "key": "DEBUG",
+      "value": "false",
+      "is_build_time": false
+    },
+    {
+      "key": "LOG_LEVEL",
+      "value": "INFO",
+      "is_build_time": false
+    },
+    {
+      "key": "DATABASE_URL",
+      "value": "postgresql://user:pass@host:5432/incidentfox",
+      "is_build_time": false,
+      "is_secret": true
+    },
+    {
+      "key": "GITHUB_APP_ID",
+      "value": "",
+      "is_build_time": false,
+      "is_secret": false
+    },
+    {
+      "key": "GITHUB_APP_PRIVATE_KEY_PATH",
+      "value": "/app/keys/private-key.pem",
+      "is_build_time": false
+    },
+    {
+      "key": "GITHUB_WEBHOOK_SECRET",
+      "value": "",
+      "is_build_time": false,
+      "is_secret": true
+    },
+    {
+      "key": "COOLIFY_API_URL",
+      "value": "",
+      "is_build_time": false
+    },
+    {
+      "key": "COOLIFY_API_TOKEN",
+      "value": "",
+      "is_build_time": false,
+      "is_secret": true
+    },
+    {
+      "key": "COOLIFY_WEBHOOK_SECRET",
+      "value": "",
+      "is_build_time": false,
+      "is_secret": true
+    },
+    {
+      "key": "OPENAI_API_KEY",
+      "value": "",
+      "is_build_time": false,
+      "is_secret": true
+    },
+    {
+      "key": "ANTHROPIC_API_KEY",
+      "value": "",
+      "is_build_time": false,
+      "is_secret": true
+    },
+    {
+      "key": "ENABLE_AUTO_FIX",
+      "value": "false",
+      "is_build_time": false
+    },
+    {
+      "key": "ENABLE_ANTHROPIC",
+      "value": "true",
+      "is_build_time": false
+    }
+  ],
+  "health_check": {
+    "enabled": true,
+    "test": "curl -f http://localhost:8000/health || exit 1",
+    "interval": "30s",
+    "timeout": "10s",
+    "retries": 3,
+    "start_period": "10s"
+  },
+  "volumes": [
+    {
+      "source": "incidentfox-data",
+      "target": "/app/data"
+    }
+  ]
+}

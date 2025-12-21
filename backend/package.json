@@ -1,7 +1,7 @@
 {
-  "name": "chartmetric-backend",
+  "name": "starter-api",
   "version": "1.0.0",
-  "description": "Backend for Chartmetric full-stack assignment",
+  "description": "Express API for the full-stack starter repo",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
