@@ -1,8 +1,8 @@
 {
-  "name": "chartmetric-preview",
-  "description": "Chartmetric Full-Stack Application - Preview Environment",
+  "name": "extend-preview",
+  "description": "Extend Full-Stack Application - Preview Environment",
   "type": "docker-compose",
-  "docker_compose_file": "docker-compose.yml",
+  "docker_compose_file": "docker-compose.yaml",
   "build_pack": "dockercompose",
   "environment_variables": [
     {
@@ -33,7 +33,7 @@
     },
     {
       "key": "DB_NAME",
-      "value": "chartmetric",
+      "value": "app",
       "is_build_time": false
     }
   ],

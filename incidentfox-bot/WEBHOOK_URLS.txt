@@ -1,0 +1,20 @@
+🌐 IncidentFox Webhook URLs (Copy These!)
+================================================
+
+Your ngrok tunnel: https://066ae13c072c.ngrok-free.app
+
+For Coolify:
+https://066ae13c072c.ngrok-free.app/webhooks/coolify
+
+For GitHub App:
+https://066ae13c072c.ngrok-free.app/webhooks/github
+
+Webhook Secret (already in .env):
+test_secret
+
+GitHub App Webhook Secret (already in .env):
+0afc305a50b97ce382421f726529ecb39fe121636d35fb6c5d9c237acd6afa37
+
+================================================
+⚠️ These URLs change if ngrok restarts!
+================================================
