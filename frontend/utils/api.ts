@@ -46,7 +46,7 @@ export const api = {
   /**
    * Sample API method to get data. You should replace this with your actual API methods.
    */
-  getData: () => fetchFromAPI('api/data'),
+  getData: () => fetchFromAPI('api/records'),
 };
 
 export default api;
