@@ -11,7 +11,7 @@ class Model {
     // Simple parameterized query example
 
     const result = await query(
-      'SELECT * FROM artists ORDER BY artist_id LIMIT $1 OFFSET $2',
+      'SELECT * FROM records ORDER BY id LIMIT $1 OFFSET $2',
       [limit, offset]
     );
 
