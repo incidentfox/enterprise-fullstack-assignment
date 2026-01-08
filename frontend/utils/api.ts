@@ -9,17 +9,23 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001';
  * @param {Object} options - Fetch options
  * @returns {Promise<any>} - Promise resolving to JSON response
  */
-export const fetchFromAPI = async (endpoint, options = {}) => {
+export const fetchFromAPI = async (
+  endpoint: string,
+  options: RequestInit = {}
+): Promise<any> => {
   try {
     const url = `${API_URL}/${endpoint}`;
     console.log(`Making API request to: ${url}`);
 
+    // Normalize headers so TypeScript and runtime behave consistently
+    const headers = new Headers(options.headers);
+    if (!headers.has('Content-Type')) {
+      headers.set('Content-Type', 'application/json');
+    }
+
     const response = await fetch(url, {
-      headers: {
-        'Content-Type': 'application/json',
-        ...options.headers,
-      },
       ...options,
+      headers,
     });
 
     if (!response.ok) {
@@ -40,7 +46,7 @@ export const api = {
   /**
    * Sample API method to get data. You should replace this with your actual API methods.
    */
-  getData: () => fetchFromAPI('api/data'),
+  getData: () => fetchFromAPI('api/records'),
 };
 
 export default api;
