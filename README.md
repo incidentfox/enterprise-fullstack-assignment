@@ -1,14 +1,14 @@
-# Full-Stack Engineer Take-Home Assignment
+# Full-Stack Starter (Next.js + Express + Postgres)
 
-Welcome to the Chartmetric Full-Stack Engineer take-home assignment! This repository contains a complete development environment for you to demonstrate your full-stack engineering skills.
+Forked from a public Chartmetric take-home assignment repository as a demo baseline (credit to Chartmetric for the original scaffold).
 
 ## Environment Overview
 
 The environment includes:
 
-- **Frontend**: NextJS application running on port 3000
-- **Backend**: NodeJS/Express API running on port 5000
-- **Database**: PostgreSQL database running on port 5432 (pre-loaded with music industry data)
+- **Web**: Next.js application running on port 3000
+- **API**: Node.js/Express API running on port 5000
+- **DB**: PostgreSQL database running on port 5432
 
 ## Prerequisites
 
@@ -34,16 +34,16 @@ This command will:
 
 Once started, you can access:
 
-- Frontend: http://localhost:3000
-- Backend: http://localhost:5001
+- Web: http://localhost:3000
+- API: http://localhost:5001
 - Database: Available on localhost:5432
   - Username: postgres
   - Password: postgres
-  - Database: chartmetric
+  - Database: app
 
 ## Database Schema
 
-The database contains a schema called `chartmetric` with tables storing music industry data.
+The database is initialized with a small sample table so the stack works out of the box.
 You can explore the database schema using:
 
 ```bash
@@ -53,7 +53,7 @@ make shell-db
 Then, inside the PostgreSQL shell:
 
 ```sql
-\dt chartmetric.*
+\dt
 ```
 
 For more details on the schema, refer to the [DATABASE.md](DATABASE.md) file.
@@ -67,22 +67,16 @@ make start    # Start all services
 make stop     # Stop all services
 make clean    # Stop services and remove containers/volumes
 make logs     # View logs from all services
-make shell-frontend  # Open a shell in the frontend container
-make shell-backend   # Open a shell in the backend container
+make shell-web       # Open a shell in the web container
+make shell-api       # Open a shell in the api container
+make shell-frontend  # Alias for shell-web
+make shell-backend   # Alias for shell-api
 make shell-db        # Open a PostgreSQL shell to the database
 make reset           # Reset all containers (fresh start)
 make help            # Show help information
 ```
 
-## Assignment Task
+## What to Customize First
 
-1. Understand the pre-made database schema
-
-   - Explore the database using `make shell-db`
-
-2. Build backend API endpoints
-3. Create a frontend interface following the instructions in the handed documentation.
-
-## Contact
-
-If you have any questions or need assistance, please contact enterprise@chartmetric.com
+1. Update the sample API route in `backend/routes/index.js` and the DB query in `backend/models/model.js`
+2. Replace the sample UI in `frontend/components/Home/Home.tsx`

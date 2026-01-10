@@ -1,0 +1,47 @@
+name: CI
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  cypress:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and start stack
+        run: |
+          docker compose -f docker-compose.yaml up -d --build
+
+      - name: Wait for web
+        run: |
+          for i in $(seq 1 60); do
+            if curl -fsS http://localhost:3000 >/dev/null; then
+              echo "web is up"
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "web did not become ready in time"
+          docker compose -f docker-compose.yaml ps
+          docker compose -f docker-compose.yaml logs --no-color --tail 200
+          exit 1
+
+      - name: Run Cypress (via npx)
+        run: |
+          cd frontend
+          npx cypress@13.15.0 run
+
+      - name: Dump logs on failure
+        if: failure()
+        run: |
+          docker compose -f docker-compose.yaml ps
+          docker compose -f docker-compose.yaml logs --no-color --tail 500
+
+

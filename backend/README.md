@@ -1,6 +1,6 @@
 # Backend Service
 
-This is the backend service for the Chartmetric assignment. It provides a REST API for accessing music streaming analytics data.
+This is the API service for the starter repo. It provides a small REST API backed by PostgreSQL.
 
 ## Setup
 
@@ -24,7 +24,7 @@ DB_HOST=db              # PostgreSQL host (default: 'db')
 DB_PORT=5432           # PostgreSQL port (default: 5432)
 DB_USER=postgres       # PostgreSQL user (default: 'postgres')
 DB_PASSWORD=postgres   # PostgreSQL password (default: 'postgres')
-DB_NAME=chartmetric    # PostgreSQL database name (default: 'chartmetric')
+DB_NAME=app            # PostgreSQL database name (default: 'app')
 ```
 
 ## Database Functions
@@ -38,10 +38,10 @@ Execute a SQL query with optional parameters.
 ```javascript
 const { query } = require('./db');
 
-// Example: Get all tracks for an artist
-const getArtistTracks = async (artistId) => {
-  const text = 'SELECT * FROM tracks WHERE artist_id = $1';
-  const params = [artistId];
+// Example: Get recent records
+const getRecentRecords = async (limit = 10) => {
+  const text = 'SELECT * FROM records ORDER BY id DESC LIMIT $1';
+  const params = [limit];
   const result = await query(text, params);
   return result.rows;
 };
@@ -72,19 +72,12 @@ Execute multiple queries within a transaction. The callback receives a client in
 ```javascript
 const { transaction } = require('./db');
 
-// Example: Update track metrics in a transaction
-const updateTrackMetrics = async (trackId, metrics) => {
+// Example: Insert a record in a transaction
+const insertRecord = async (name) => {
   await transaction(async (client) => {
-    // Update daily metrics
     await client.query(
-      'UPDATE daily_metrics SET streams = $1, saves = $2 WHERE track_id = $3',
-      [metrics.streams, metrics.saves, trackId]
-    );
-
-    // Update track's total metrics
-    await client.query(
-      'UPDATE tracks SET total_streams = total_streams + $1 WHERE track_id = $2',
-      [metrics.streams, trackId]
+      'INSERT INTO records (name) VALUES ($1)',
+      [name]
     );
   });
 };
