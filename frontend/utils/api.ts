@@ -1,2 +1,1 @@
-getData: () => fetchFromAPI('api/data'),
-    + getData: () => fetchFromAPI('api/records'),
+export const getData = () => fetchFromAPI('api/records');
